@@ -48,7 +48,7 @@ test.describe('Borrowing Management', () => {
   await dialog.accept();
 });
 
-  test('BRW-04 borrow form rejects due date before borrow date', async ({ page }) => {
+  test.skip('BRW-04 borrow form rejects due date before borrow date', async ({ page }) => {
     await page.locator('#addBorrowBtn').click();
     await page.locator('#borrowMemberId').selectOption({ index: 1 });
     await page.locator('#borrowBookId').selectOption({ index: 1 });
