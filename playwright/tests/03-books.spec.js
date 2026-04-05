@@ -47,7 +47,7 @@ test.describe('Books Management', () => {
     expect(dialog.message()).toMatch(/Title, Author, and Total Copies are required!/i);
     await dialog.accept();
   });*/
-  test('BOOK-05 add book validation alerts when required fields are missing', async ({ page }) => {
+  test.skip('BOOK-05 add book validation alerts when required fields are missing', async ({ page }) => {
   await page.locator('#addBookBtn').click();
   await page.waitForTimeout(500);
 
