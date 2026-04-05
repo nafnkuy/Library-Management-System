@@ -1,64 +1,36 @@
-# รายงานการทดสอบ Cross-browser
+## ผลการทดสอบ Cross-browser
 
-## วัตถุประสงค์
-เพื่อทดสอบความสามารถของระบบในการทำงานข้ามเบราว์เซอร์ต่าง ๆ โดยใช้ Playwright
+มีการรันทดสอบทั้งหมด 114 tests ครอบคลุม 3 browser ได้แก่ Chromium, Firefox และ WebKit โดยผลรวมคือ Passed 58, Failed 13 และ Did not run 43
 
----
+| Browser | Total | Passed | Failed | Did not run | Pass rate |
+|---|---:|---:|---:|---:|---:|
+| Chromium | 38 | 23 | 3 | 12 | 60.5% |
+| Firefox | 38 | 12 | 7 | 19 | 31.6% |
+| WebKit (Safari) | 38 | 23 | 3 | 12 | 60.5% |
 
-## Browser ที่ใช้ทดสอบ
-- Chromium (Google Chrome)
-- Firefox
-- WebKit (Safari)
+### Chromium
+ระบบทำงานได้ค่อนข้างดีใน Chromium โดยผ่าน 23 tests จาก 38 tests
+ข้อผิดพลาดหลักพบใน test ที่เกี่ยวข้องกับ validation ของฟอร์ม ได้แก่การเพิ่มหนังสือ การเพิ่มสมาชิก และการยืมหนังสือ
 
----
+### Firefox
+Firefox เป็น browser ที่มีปัญหามากที่สุด โดยผ่านเพียง 12 tests จาก 38 tests
+ข้อผิดพลาดหลักเกิดจากปัญหา page navigation เช่น page.goto('/books'), page.goto('/members'), page.goto('/borrowing') และ page.goto('/reports') ซึ่งแสดง error แบบ NS_BINDING_ABORTED
 
-## ผลการทดสอบ
-
-### 🔹 1. Chromium (Chrome)
-- Test ส่วนใหญ่ผ่านทั้งหมด
-- ระบบทำงานได้ถูกต้องและเสถียร
-- ไม่มีปัญหาสำคัญ
-
-**สรุป:** รองรับได้สมบูรณ์ ✅
-
----
-
-### 🔹 2. Firefox
-- Test บางส่วนไม่ผ่าน
-- ปัญหาที่พบ:
-  - การแสดงผล UI แตกต่างจาก Chromium
-  - ปัญหาในการจัดการ Dialog/Alert
-  - บาง element ไม่สามารถ interact ได้
-
-**สรุป:** รองรับได้บางส่วน ⚠️
-
----
-
-### 🔹 3. WebKit (Safari)
-- Test หลายส่วนไม่ผ่าน
-- ปัญหาที่พบ:
-  - ปุ่มบางส่วนไม่สามารถคลิกได้
-  - UI render แตกต่าง
-  - การทำงานของ JavaScript บางส่วนไม่ตรง
-
-**สรุป:** ยังต้องปรับปรุง ❌
-
----
+### WebKit (Safari)
+WebKit มีผลใกล้เคียงกับ Chromium โดยผ่าน 23 tests จาก 38 tests
+ปัญหาหลักยังคงอยู่ที่ validation tests ชุดเดียวกับ Chromium
 
 ## วิเคราะห์ปัญหา
-- ความแตกต่างของ rendering engine ในแต่ละ browser
-- การจัดการ event และ dialog ไม่เหมือนกัน
-- UI ไม่ responsive ต่อบาง browser
-
----
-
-## ข้อเสนอแนะ
-- ปรับปรุง CSS และ UI ให้รองรับหลาย browser
-- ปรับ logic การจัดการ dialog
-- ทดสอบ cross-browser ตั้งแต่ต้น development
-
----
+- Firefox มี compatibility issue ด้าน navigation และ page loading มากที่สุด
+- Chromium และ WebKit มีปัญหาร่วมกันในกลุ่ม form validation
+- จำนวน Did not run ค่อนข้างสูง แสดงว่ายังมี test บางส่วนที่ถูก skip หรือยังไม่พร้อมใช้งาน
 
 ## สรุป
-ระบบสามารถทำงานได้ดีที่สุดบน Chromium  
-และควรมีการปรับปรุงเพิ่มเติมเพื่อรองรับ Firefox และ Safari ให้สมบูรณ์
+ระบบรองรับ Chromium และ WebKit ได้ดีกว่า Firefox อย่างชัดเจน
+โดย Firefox ต้องการการปรับปรุงเพิ่มเติมในส่วนการนำทางและการโหลดหน้า
+ขณะที่ Chromium และ WebKit ควรปรับปรุงในส่วน validation handling ของฟอร์ม
+
+## Known Issues Identified
+- Firefox: page navigation failure (NS_BINDING_ABORTED)
+- Chromium/WebKit: validation dialog interaction timeout
+- Some tests were skipped and require future execution
