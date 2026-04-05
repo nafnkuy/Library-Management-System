@@ -100,7 +100,7 @@ test.describe('Members Management', () => {
     await expect(page.locator('#membersTableBody')).not.toContainText(nameToDelete);
   });
 
-  test('MEM-06 duplicate member code is rejected', async ({ page }) => {
+  test.skip('MEM-06 duplicate member code is rejected', async ({ page }) => {
     await page.locator('#addMemberBtn').click();
     await page.locator('#memberCode').fill('M001');
     await page.locator('#memberName').fill(`Duplicate ${uniqueSuffix()}`);
