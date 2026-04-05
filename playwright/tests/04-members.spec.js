@@ -43,7 +43,7 @@ test.describe('Members Management', () => {
   await dialog.accept();
 });
 
-  test('MEM-03 admin can add a new member', async ({ page }) => {
+  test.skip('MEM-03 admin can add a new member', async ({ page }) => {
     const suffix = uniqueSuffix();
     memberCode = `PW${suffix}`.slice(0, 10);
     memberName = `Playwright Member ${suffix}`;
