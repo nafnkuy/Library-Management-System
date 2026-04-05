@@ -10,3 +10,5 @@ build/
 *.log
 .vscode/
 .idea/
+test-results/
+playwright-report/
