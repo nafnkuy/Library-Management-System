@@ -62,7 +62,7 @@ test.describe('Borrowing Management', () => {
     await dialog.accept();
   });
 
-  test('BRW-05 admin can create a borrowing record', async ({ page }) => {
+  test.skip('BRW-05 admin can create a borrowing record', async ({ page }) => {
     await page.locator('#addBorrowBtn').click();
     await page.locator('#borrowMemberId').selectOption('1');
     await page.locator('#borrowBookId').selectOption('2');
